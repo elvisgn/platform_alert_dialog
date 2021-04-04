@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:platform_alert_dialog/platform_alert_dialog.dart';
 
 void main() {
@@ -27,7 +26,7 @@ void main() {
       await tester.pumpWidget(MaterialApp(
         home: PlatformDialogAction(
           child: child = Text('Child'),
-          onPressed: null,
+          onPressed: () {},
         ),
       ));
 
@@ -62,7 +61,7 @@ void main() {
           actions: <Widget>[
             PlatformDialogAction(
               child: Text('Child'),
-              onPressed: null,
+              onPressed: () {},
             ),
           ],
         ),
@@ -72,7 +71,7 @@ void main() {
       ));
 
       expect(find.byType(AlertDialog), findsOneWidget);
-      expect(find.byType(FlatButton), findsOneWidget);
+      expect(find.byType(TextButton), findsOneWidget);
     },
   );
   testWidgets(
@@ -84,7 +83,7 @@ void main() {
           actions: <Widget>[
             PlatformDialogAction(
               child: Text('Child'),
-              onPressed: null,
+              onPressed: () {},
             ),
           ],
         ),

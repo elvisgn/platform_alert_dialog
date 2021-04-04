@@ -29,8 +29,8 @@ import 'package:flutter/material.dart';
 /// ```
 class PlatformAlertDialog extends StatelessWidget {
   const PlatformAlertDialog({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.content,
     this.actions,
   }) : super(key: key);
@@ -44,12 +44,12 @@ class PlatformAlertDialog extends StatelessWidget {
   ///
   /// Complex widgets, like inputs, have to adapts their style to the current
   /// platform.
-  final Widget content;
+  final Widget? content;
 
   /// The actions of the dialog.
   ///
   /// Usually a list of [PlatformDialogAction].
-  final List<Widget> actions;
+  final List<Widget>? actions;
 
   Widget build(BuildContext context) {
     switch (Theme.of(context).platform) {
@@ -68,11 +68,17 @@ class PlatformAlertDialog extends StatelessWidget {
           content: SingleChildScrollView(
             child: content,
           ),
-          actions: actions,
+          actions: actions!,
         );
     }
     // unreachable
-    return null;
+    return AlertDialog(
+      title: title,
+      content: SingleChildScrollView(
+        child: content,
+      ),
+      actions: actions,
+    );
   }
 }
 
@@ -115,9 +121,9 @@ enum ActionType {
 /// ```
 class PlatformDialogAction extends StatelessWidget {
   const PlatformDialogAction({
-    Key key,
-    @required this.child,
-    @required this.onPressed,
+    Key? key,
+    required this.child,
+    required this.onPressed,
     this.actionType: ActionType.Default,
   }) : super(key: key);
 
@@ -138,27 +144,30 @@ class PlatformDialogAction extends StatelessWidget {
       case TargetPlatform.fuchsia:
         switch (actionType) {
           case ActionType.Default:
-            return FlatButton(
+            return TextButton(
               child: child,
               onPressed: onPressed,
             );
           case ActionType.Preferred:
-            return FlatButton(
+            return TextButton(
               child: child,
               onPressed: onPressed,
-              color: Theme.of(context).accentColor,
-              colorBrightness: Theme.of(context).accentColorBrightness,
-              textColor: Colors.white,
+              style: TextButton.styleFrom(
+                primary: Theme.of(context).accentColor,
+                textStyle: TextStyle(color: Colors.white),
+              ),
+              // colorBrightness: Theme.of(context).accentColorBrightness,
             );
           case ActionType.Destructive:
-            return FlatButton(
+            return TextButton(
               child: child,
               onPressed: onPressed,
-              color: Theme.of(context).errorColor,
-              textColor: Colors.white,
+              style: TextButton.styleFrom(
+                primary: Theme.of(context).errorColor,
+                textStyle: TextStyle(color: Colors.white),
+              ),
             );
         }
-        break;
       case TargetPlatform.iOS:
         switch (actionType) {
           case ActionType.Default:
@@ -180,7 +189,31 @@ class PlatformDialogAction extends StatelessWidget {
             );
         }
     }
-    // unreachable
-    return null;
+    switch (actionType) {
+      case ActionType.Default:
+        return TextButton(
+          child: child,
+          onPressed: onPressed,
+        );
+      case ActionType.Preferred:
+        return TextButton(
+          child: child,
+          onPressed: onPressed,
+          style: TextButton.styleFrom(
+            primary: Theme.of(context).accentColor,
+            textStyle: TextStyle(color: Colors.white),
+          ),
+          // colorBrightness: Theme.of(context).accentColorBrightness,
+        );
+      case ActionType.Destructive:
+        return TextButton(
+          child: child,
+          onPressed: onPressed,
+          style: TextButton.styleFrom(
+            primary: Theme.of(context).errorColor,
+            textStyle: TextStyle(color: Colors.white),
+          ),
+        );
+    }
   }
 }
