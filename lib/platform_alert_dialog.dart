@@ -70,15 +70,15 @@ class PlatformAlertDialog extends StatelessWidget {
           ),
           actions: actions!,
         );
+      default:
+        return AlertDialog(
+          title: title,
+          content: SingleChildScrollView(
+            child: content,
+          ),
+          actions: actions,
+        );
     }
-    // unreachable
-    return AlertDialog(
-      title: title,
-      content: SingleChildScrollView(
-        child: content,
-      ),
-      actions: actions,
-    );
   }
 }
 
@@ -140,8 +140,27 @@ class PlatformDialogAction extends StatelessWidget {
 
   Widget build(BuildContext context) {
     switch (Theme.of(context).platform) {
-      case TargetPlatform.android:
-      case TargetPlatform.fuchsia:
+      case TargetPlatform.iOS:
+        switch (actionType) {
+          case ActionType.Default:
+            return CupertinoDialogAction(
+              child: child,
+              onPressed: onPressed,
+            );
+          case ActionType.Preferred:
+            return CupertinoDialogAction(
+              child: child,
+              onPressed: onPressed,
+              isDefaultAction: true,
+            );
+          case ActionType.Destructive:
+            return CupertinoDialogAction(
+              child: child,
+              onPressed: onPressed,
+              isDestructiveAction: true,
+            );
+        }
+      default:
         switch (actionType) {
           case ActionType.Default:
             return TextButton(
@@ -168,52 +187,6 @@ class PlatformDialogAction extends StatelessWidget {
               ),
             );
         }
-      case TargetPlatform.iOS:
-        switch (actionType) {
-          case ActionType.Default:
-            return CupertinoDialogAction(
-              child: child,
-              onPressed: onPressed,
-            );
-          case ActionType.Preferred:
-            return CupertinoDialogAction(
-              child: child,
-              onPressed: onPressed,
-              isDefaultAction: true,
-            );
-          case ActionType.Destructive:
-            return CupertinoDialogAction(
-              child: child,
-              onPressed: onPressed,
-              isDestructiveAction: true,
-            );
-        }
-    }
-    switch (actionType) {
-      case ActionType.Default:
-        return TextButton(
-          child: child,
-          onPressed: onPressed,
-        );
-      case ActionType.Preferred:
-        return TextButton(
-          child: child,
-          onPressed: onPressed,
-          style: TextButton.styleFrom(
-            primary: Theme.of(context).accentColor,
-            textStyle: TextStyle(color: Colors.white),
-          ),
-          // colorBrightness: Theme.of(context).accentColorBrightness,
-        );
-      case ActionType.Destructive:
-        return TextButton(
-          child: child,
-          onPressed: onPressed,
-          style: TextButton.styleFrom(
-            primary: Theme.of(context).errorColor,
-            textStyle: TextStyle(color: Colors.white),
-          ),
-        );
     }
   }
 }
