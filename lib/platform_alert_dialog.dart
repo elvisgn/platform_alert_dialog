@@ -142,11 +142,6 @@ class PlatformDialogAction extends StatelessWidget {
     switch (Theme.of(context).platform) {
       case TargetPlatform.iOS:
         switch (actionType) {
-          case ActionType.Default:
-            return CupertinoDialogAction(
-              child: child,
-              onPressed: onPressed,
-            );
           case ActionType.Preferred:
             return CupertinoDialogAction(
               child: child,
@@ -159,14 +154,14 @@ class PlatformDialogAction extends StatelessWidget {
               onPressed: onPressed,
               isDestructiveAction: true,
             );
-        }
-      default:
-        switch (actionType) {
-          case ActionType.Default:
-            return TextButton(
+          default:
+            return CupertinoDialogAction(
               child: child,
               onPressed: onPressed,
             );
+        }
+      default:
+        switch (actionType) {
           case ActionType.Preferred:
             return TextButton(
               child: child,
@@ -182,9 +177,15 @@ class PlatformDialogAction extends StatelessWidget {
               child: child,
               onPressed: onPressed,
               style: TextButton.styleFrom(
-                primary: Theme.of(context).errorColor,
+                backgroundColor: Theme.of(context).errorColor,
+                primary: Colors.white,
                 textStyle: TextStyle(color: Colors.white),
               ),
+            );
+          default:
+            return TextButton(
+              child: child,
+              onPressed: onPressed,
             );
         }
     }
