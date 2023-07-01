@@ -171,10 +171,11 @@ class PlatformDialogAction extends StatelessWidget {
               style: ButtonStyle(
                 foregroundColor:
                     MaterialStateProperty.all(Theme.of(context).primaryColor),
-                backgroundColor:
-                    MaterialStateProperty.all(Theme.of(context).primaryColor),
-                textStyle:
-                    MaterialStateProperty.all(TextStyle(color: Colors.white)),
+                textStyle: MaterialStateProperty.all(TextStyle(
+                    color:
+                        Theme.of(context).primaryColor.computeLuminance() > 0.5
+                            ? Colors.black
+                            : Colors.white)),
               ),
             );
           case ActionType.Destructive:
@@ -184,10 +185,11 @@ class PlatformDialogAction extends StatelessWidget {
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all(
                     Theme.of(context).colorScheme.error),
-                backgroundColor: MaterialStateProperty.all(
-                    Theme.of(context).colorScheme.error),
-                textStyle:
-                    MaterialStateProperty.all(TextStyle(color: Colors.white)),
+                textStyle: MaterialStateProperty.all(TextStyle(
+                    color:
+                        Theme.of(context).primaryColor.computeLuminance() > 0.5
+                            ? Colors.black
+                            : Colors.white)),
               ),
             );
           default:
