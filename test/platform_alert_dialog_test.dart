@@ -47,7 +47,7 @@ void main() {
       ));
 
       // should work since tests are performed in an Android "sandbox"
-      await tester.tap(find.byType(FlatButton).first);
+      await tester.tap(find.byType(TextButton).first);
 
       expect(tapped, equals(true));
     },

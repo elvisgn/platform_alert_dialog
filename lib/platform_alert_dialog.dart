@@ -1,3 +1,5 @@
+library platform_alert_dialog;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -166,20 +168,26 @@ class PlatformDialogAction extends StatelessWidget {
             return TextButton(
               child: child,
               onPressed: onPressed,
-              style: TextButton.styleFrom(
-                primary: Theme.of(context).accentColor,
-                textStyle: TextStyle(color: Colors.white),
+              style: ButtonStyle(
+                foregroundColor:
+                    MaterialStateProperty.all(Theme.of(context).primaryColor),
+                backgroundColor:
+                    MaterialStateProperty.all(Theme.of(context).primaryColor),
+                textStyle:
+                    MaterialStateProperty.all(TextStyle(color: Colors.white)),
               ),
-              // colorBrightness: Theme.of(context).accentColorBrightness,
             );
           case ActionType.Destructive:
             return TextButton(
               child: child,
               onPressed: onPressed,
-              style: TextButton.styleFrom(
-                backgroundColor: Theme.of(context).errorColor,
-                primary: Colors.white,
-                textStyle: TextStyle(color: Colors.white),
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all(
+                    Theme.of(context).colorScheme.error),
+                backgroundColor: MaterialStateProperty.all(
+                    Theme.of(context).colorScheme.error),
+                textStyle:
+                    MaterialStateProperty.all(TextStyle(color: Colors.white)),
               ),
             );
           default:
