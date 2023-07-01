@@ -126,7 +126,7 @@ class PlatformDialogAction extends StatelessWidget {
     Key? key,
     required this.child,
     required this.onPressed,
-    this.actionType: ActionType.Default,
+    this.actionType = ActionType.Default,
   }) : super(key: key);
 
   /// The content of the action.
@@ -169,7 +169,7 @@ class PlatformDialogAction extends StatelessWidget {
               child: child,
               onPressed: onPressed,
               style: ButtonStyle(
-                foregroundColor:
+                backgroundColor:
                     MaterialStateProperty.all(Theme.of(context).primaryColor),
                 textStyle: MaterialStateProperty.all(TextStyle(
                     color:
@@ -183,7 +183,7 @@ class PlatformDialogAction extends StatelessWidget {
               child: child,
               onPressed: onPressed,
               style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(
+                backgroundColor: MaterialStateProperty.all(
                     Theme.of(context).colorScheme.error),
                 textStyle: MaterialStateProperty.all(TextStyle(
                     color:
