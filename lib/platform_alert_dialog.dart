@@ -168,29 +168,23 @@ class PlatformDialogAction extends StatelessWidget {
             return TextButton(
               child: child,
               onPressed: onPressed,
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(Theme.of(context).primaryColor),
-                textStyle: MaterialStateProperty.all(TextStyle(
-                    color:
-                        Theme.of(context).primaryColor.computeLuminance() > 0.5
-                            ? Colors.black
-                            : Colors.white)),
-              ),
+              style: TextButton.styleFrom(
+                  foregroundColor:
+                      Theme.of(context).primaryColor.computeLuminance() > 0.5
+                          ? Colors.black
+                          : Colors.white,
+                  backgroundColor: Theme.of(context).primaryColor),
             );
           case ActionType.Destructive:
             return TextButton(
               child: child,
               onPressed: onPressed,
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                    Theme.of(context).colorScheme.error),
-                textStyle: MaterialStateProperty.all(TextStyle(
-                    color:
-                        Theme.of(context).primaryColor.computeLuminance() > 0.5
-                            ? Colors.black
-                            : Colors.white)),
-              ),
+              style: TextButton.styleFrom(
+                  foregroundColor:
+                      Theme.of(context).primaryColor.computeLuminance() > 0.5
+                          ? Colors.black
+                          : Colors.white,
+                  backgroundColor: Theme.of(context).primaryColor),
             );
           default:
             return TextButton(
